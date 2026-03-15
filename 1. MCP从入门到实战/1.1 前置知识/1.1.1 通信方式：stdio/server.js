@@ -3,11 +3,12 @@ process.stdin.setDefaultEncoding("utf-8");
 
 // 监听父进程的输入
 process.stdin.on("data", (data) => {
-  const response = data.toString()
-                       .replace(/[?？]/g, "")
-                       .replace(/吗/g, "")
-                       .replace(/你/, "我")
-                       .replace(/我/, "你");
+  data = data.toString()
+           .replace(/[?？]/g, "")
+           .replace(/吗/g, "")
+           .replace(/我/g, "你")
+           .replace(/你/g, "我");
+  const response = "AI：" + data + "\n"
   // process.stdout.write("回复：" + response + "\n");
   process.stdout.write(response);
 });
