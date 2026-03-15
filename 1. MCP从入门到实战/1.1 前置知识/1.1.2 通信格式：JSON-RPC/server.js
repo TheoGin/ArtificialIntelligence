@@ -1,16 +1,17 @@
+// const utils = require("./utils.js");
 // import utils from "./utils";
-const utils = require("./utils.js");
+import utils from "./utils.js"; // node 运行ESModule要加后缀！！
 
 process.stdin.on("data", data => {
-  const obj = JSON.parse(data);
-  const method = obj.method;
-  const params = obj.params;
-  const result = utils[method](params);
+  const requestObj = JSON.parse(data);
+  const functionName = requestObj.method;
+  const params = requestObj.params;
+  const result = utils[functionName](params);
 
   const response = {
     jsonrpc: "2.0",
     result,
-    id: obj.id,
+    id: requestObj.id,
   };
   process.stdout.write(JSON.stringify(response) + "\n");
 });

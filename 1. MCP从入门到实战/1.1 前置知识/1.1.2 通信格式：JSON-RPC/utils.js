@@ -1,12 +1,17 @@
-// import * as fs from "node:fs";
+import fs from "fs";
 
-// export default {
-const fs = require("node:fs");
-module.exports = {
+// const fs = require("node:fs");
+// module.exports = {
+export default {
   sum({ a, b }) {
     return a + b;
   },
   createFile({ filename, content }) {
-    fs.writeFileSync(filename, content);
+    try {
+      fs.writeFileSync(filename, content);
+      return true;
+    } catch (e) {
+      return false;
+    }
   },
 };
