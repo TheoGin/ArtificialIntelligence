@@ -1,20 +1,37 @@
-import { URL, fileURLToPath } from 'node:url';
-import path from 'node:path';
-import { PDFParse } from 'pdf-parse';
+import { PDFParse } from "pdf-parse";
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url));
+import path from "node:path";
 
-const file = path.join(__dirname, './assets/香蕉手机参数配置.pdf');
-let promise;
-export default async function getDoc() {
-  if (promise) {
-    return promise;
+import { fileURLToPath, URL } from "node:url";
+
+// import.meta.url 获取当前文件的 URL
+console.log("import.meta.url: ", import.meta.url); // import.meta.url:  file:///D:/DuYi/AI/code/ArtificialIntelligence/2.%20RAG/src/getDoc.js
+
+console.log("new URL(\".\", import.meta.url): ", new URL(".", import.meta.url)); // new URL(".", import.meta.url):  URL { href: 'file:///D:/DuYi/AI/code/ArtificialIntelligence/2.%20RAG/src/', ..., pathname: '/D:/DuYi/AI/code/ArtificialIntelligence/2.%20RAG/src/', ..., }
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
+
+console.log("__dirname: ", __dirname); // __dirname:  D:\DuYi\AI\code\ArtificialIntelligence\2. RAG\src\
+
+const filePath = path.resolve(__dirname, "./assets/香蕉手机参数配置.pdf");
+console.log("filePath: ", filePath); // filePath:  D:\DuYi\AI\code\ArtificialIntelligence\2. RAG\src\assets\香蕉手机参数配置.pdf
+
+let fileContentPromise;
+
+export default async function getDoc(filePath) {
+  if (fileContentPromise) {
+    return fileContentPromise;
   }
-  const parser = new PDFParse({ url: file });
-  const data = await parser.getText();
-  return data.text;
+
+  const pdf = new PDFParse({
+    url: filePath,
+  });
+
+
+  fileContentPromise = await pdf.getText();
+
+  return fileContentPromise.text;
 }
 
-getDoc().then(r => {
+getDoc(filePath).then(r => {
   console.log(r);
 })
