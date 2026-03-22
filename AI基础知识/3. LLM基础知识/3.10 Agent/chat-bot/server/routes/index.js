@@ -21,7 +21,7 @@ router.post("/ask", async (request, response) => {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
-      model: "qwen3.5:0.8b",
+      model: "qwen:0.5b",
       // 一般不会直接把用户的问题作为提示词
       // prompt: question,
       prompt,

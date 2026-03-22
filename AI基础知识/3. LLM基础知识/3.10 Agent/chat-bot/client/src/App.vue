@@ -66,7 +66,7 @@ async function handleSubmit() {
   await nextTick();
   // 让聊天页面做一个滚动
   chatBoxRef.value?.scrollTo({
-    // clientHeight 是可视窗口高度，需要滚动的高度
+    // clientHeight 是可视窗口高度，需要 scrollHeight：实际内容的高
     top: chatBoxRef.value?.scrollHeight,
     behavior: 'smooth',
   })
